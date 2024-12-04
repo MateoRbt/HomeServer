@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  # MariaDB Database Container for Nextcloud
+  mariadb:
+    image: mariadb:11.4
+    container_name: nextcloud-db
+    command: >
+      --transaction-isolation=READ-COMMITTED 
+      --binlog-format=ROW 
+      --innodb-file-per-table=1 
+      --skip-innodb-read-only-compressed
+    volumes:
+      # MariaDB data directory - stores database files
+      - ${DB_DATA_VOLUME}:/var/lib/mysql
+    environment:
+      # Environment variables for MariaDB configuration
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+    networks:
+      myMacvlan:
+        # Static IP address for the MariaDB container
+        ipv4_address: ${DB_STATIC_IP}
+
+  # Nextcloud Application Container
+  nextcloud:
+    image: nextcloud:latest
+    container_name: nextcloud
+    ports:
+      # Map external port to Nextcloud's internal port 80
+      - ${NEXTCLOUD_PORT}:80
+    volumes:
+      # Configuration directory for Nextcloud - stores config.php and other settings
+      - ${NEXTCLOUD_CONFIG_VOLUME}:/config
+      # Data directory for Nextcloud - stores uploaded files and user data
+      - ${NEXTCLOUD_DATA_VOLUME}:/var/www/html
+    environment:
+      # Environment variables for database connection
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_HOST=${DB_STATIC_IP}  # Database host IP address
+    restart: unless-stopped
+    networks:
+      myMacvlan:
+        # Static IP address for the Nextcloud container
+        ipv4_address: ${NEXTCLOUD_STATIC_IP}
+
+networks:
+  # External macvlan network to avoid port conflicts and assign static IPs
+  myMacvlan:
+    external: true
