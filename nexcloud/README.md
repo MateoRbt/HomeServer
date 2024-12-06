@@ -1,4 +1,4 @@
-# Guide to Deploy nextcloud in Portainer
+# Guide to Deploy Nextcloud in Portainer
 
 ## Prerequisites
 - Portainer is installed and running.
@@ -7,7 +7,7 @@
 
 ## Step 1: Access the Portainer UI
 1. Open your web browser.
-2. Navigate to the URL or IP address of your Portainer instance (e.g., `http://<portainer-ip>:9000`).
+2. Navigate to the URL or IP address of your Portainer instance (e.g., `http://<portainer-ip>:9443`).
 3. Log in with your credentials.
 
 ## Step 2: Navigate to the Stacks Section
@@ -34,7 +34,7 @@
 ## Step 5: Verify the Deployment
 1. After deployment, you will be redirected to the stack's details page.
 2. Check the status of the services to ensure they are running.
-3. Verify the application by accessing it in your browser (e.g., `http://<server-ip>:8080` for Nextcloud).
+3. Verify the application by accessing it in your browser (e.g., `http://macvlan-ip-you-set-in-env` for Nextcloud).
 
 ## Tips and Notes
 - Use **Volumes** to persist application data.
