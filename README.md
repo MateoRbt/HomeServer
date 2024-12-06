@@ -1,6 +1,6 @@
-# Welcome to My Home Server Wiki
+# Welcome to My Home Server Repo
 
-This wiki documents the setup and management of my home server, focusing on simplicity, security, and efficiency. The server is designed to host essential services with easy remote access while maintaining a clean network architecture.
+This Repo documents the setup and management of my home server, focusing on simplicity, security, and efficiency. The server is designed to host essential services with easy remote access while maintaining a clean network architecture.
 
 ## Key Features
 - **Nextcloud**: Private cloud storage for files, calendars, and more.  
