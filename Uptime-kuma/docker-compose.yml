@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    restart: always
+    ports:
+      - "3001:3001"
+    networks:
+      - non-expose
+    volumes:
+      - ${KUMA_CONFIG_VOLUME}:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock  # Mount Docker socket for access
+
+networks:
+  non-expose:
+    driver: bridge
