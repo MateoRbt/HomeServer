@@ -11,7 +11,7 @@ This Repo documents the setup and management of my home server, focusing on simp
 - **Uptime-Kuma**: Monitor your services throught uptime-kuma dashboard and get real time notifications
 - **Heimdall** :Your own dashboard to view directly your selfhosted services
 
-Contribute and Improve
+## Contribute and Improve
 This server is a work in progress, with plans to add more services in the future. Your feedback and ideas are welcome! If you have suggestions for new services, tips for improving reliability, or ways to optimize the setup, feel free to share. Contributions via pull requests (PRs) are also encouraged. Let’s collaborate to make this server even better!
 
 Contact me anytime to share your thoughts or suggestions.
