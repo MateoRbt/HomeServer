@@ -11,6 +11,7 @@ This Repo documents the setup and management of my home server, focusing on simp
 - **Uptime-Kuma**: Monitor your services throught uptime-kuma dashboard and get real time notifications
 - **Heimdall** :Your own dashboard to view directly your selfhosted services
 - **Watchtower** : Monitor service for updating your docker containers
+- **Duplicati** : Back up your docker containers 
 
 Explore the setup details and tips for managing these core features to build a reliable and streamlined home server!
 
