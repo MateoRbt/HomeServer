@@ -1,0 +1,47 @@
+version: '3.7'
+
+services:
+  # Pi-hole service
+  pihole:
+    image: pihole/pihole:latest
+    container_name: pihole
+    environment:
+      - TZ= ${TZ}     # Change to your timezone
+      - WEBPASSWORD=   # Set your Pi-hole web password
+      - PIHOLE_DOCKER_TAG=v5.0
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80"                    # Web interface port
+      - "443:443"                  # Web interface SSL port
+    volumes:
+      - ${PIHOLE_CONFIG_VOLUME}:/etc/pihole           # Pi-hole configurations
+      - ${PIHOLE_CONFIG_VOLUME_DNSMASQ}:/etc/dnsmasq.d       # Pi-hole DNS settings
+    networks:
+      myMacvlan:
+        ipv4_address: ${PIHOLE_STATIC_IP} # Set Pi-hole static IP (adjust as needed)
+    restart: unless-stopped
+
+  # Unbound service
+  unbound:
+    image: mvance/unbound:latest
+    container_name: unbound
+    environment:
+      - TZ=${TZ}         # Change to your timezone
+    volumes:
+      - ${UNBOUND_CONFIG_VOLUME}:/opt/unbound/etc/unbound        # Unbound configuration folder
+    ports:
+      - "5053:53/tcp"
+      - "5053:53/udp"
+    healthcheck:
+      test: ["NONE"]
+    networks:
+      myMacvlan:
+        ipv4_address: ${UNBOUND_STATIC_IP}  # Set Unbound static IP (adjust as needed)
+    restart: unless-stopped
+   
+
+networks:
+  # Use the existing external macvlan network
+  myMacvlan:
+    external: true

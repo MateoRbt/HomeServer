@@ -1,0 +1,26 @@
+services:
+  tailscale:
+    image: tailscale/tailscale
+    container_name: tailscale
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    privileged: true  # Grants elevated permissions
+    volumes:
+      - ${TAILSCALE_CONFIG_VOLUME}:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}  # Replace with your auth key
+      - TS_HOSTNAME=HomeServer
+      - TS_ROUTES=192.168.1.0/24  # Advertise the macvlan subnet
+      - TS_EXTRA_ARGS=--accept-routes
+      - TS_STATE_DIR=/var/lib/tailscale  # Persistent state storage
+      - TS_USERSPACE=true  # Use userspace networking (default)
+      - TS_ACCEPT_DNS=true  # Optional, if you want Tailscale DNS
+    networks:
+      myMacvlan:
+        ipv4_address:${TAILSCALE_STATIC_IP}  # Static IP for Tailscale
+
+networks:
+  myMacvlan: # Define your macvlan network
+    external: true
