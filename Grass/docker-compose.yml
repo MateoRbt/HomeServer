@@ -1,0 +1,19 @@
+services:
+  grass:
+    image: 217heidai/grass:latest
+    container_name: grass
+    restart: unless-stopped
+    ports:
+      - "5800:5800"
+    volumes:
+      - "(path-to-config-files-for-grass)/grass:/config"
+    environment:
+      - USER_ID= #user id
+      - GROUP_ID= #grooup id
+    networks:
+      myMacvlan:
+        ipv4_address: x.x.x.x  # Static IP for the service
+
+networks:
+  myMacvlan:
+    external: true
