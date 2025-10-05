@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: home-assistant
+    restart: unless-stopped
+    volumes:
+      - /path/to/your/config/folder:/config
+    environment:
+      - #add your environment variables here
+    networks:
+      myMacvlan:
+        ipv4_address: #add your desired static IP address here
+    privileged: true  
+
+#add your macvlan network configuration here if not already created
+networks:
+  myMacvlan:
+    external: true
